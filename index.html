@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FizzBuzz (1 - 50)</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+
+      /* Type colors */
+      --color-normal: #f1f5f9;
+      --color-normal-border: #cbd5e1;
+      --color-normal-text: #334155;
+
+      --color-fizz: #e0f2fe;
+      --color-fizz-border: #7dd3fc;
+      --color-fizz-text: #0369a1;
+
+      --color-buzz: #ffedd5;
+      --color-buzz-border: #fdba74;
+      --color-buzz-text: #c2410c;
+
+      --color-fizzbuzz: #f3e8ff;
+      --color-fizzbuzz-border: #d8b4fe;
+      --color-fizzbuzz-text: #7e22ce;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #0284c7, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .legend-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      border: 1px solid transparent;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-num {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      width: 100%;
+      word-break: break-word;
+    }
+
+    /* Type styles */
+    .type-normal .card-label {
+      background-color: var(--color-normal);
+      border: 1px solid var(--color-normal-border);
+      color: var(--color-normal-text);
+    }
+
+    .type-fizz .card-label {
+      background-color: var(--color-fizz);
+      border: 1px solid var(--color-fizz-border);
+      color: var(--color-fizz-text);
+    }
+
+    .type-buzz .card-label {
+      background-color: var(--color-buzz);
+      border: 1px solid var(--color-buzz-border);
+      color: var(--color-buzz-text);
+    }
+
+    .type-fizzbuzz .card-label {
+      background-color: var(--color-fizzbuzz);
+      border: 1px solid var(--color-fizzbuzz-border);
+      color: var(--color-fizzbuzz-text);
+    }
+
+    /* Legend badges specific styling */
+    .badge-normal {
+      background: var(--color-normal);
+      border-color: var(--color-normal-border);
+      color: var(--color-normal-text);
+    }
+    .badge-fizz {
+      background: var(--color-fizz);
+      border-color: var(--color-fizz-border);
+      color: var(--color-fizz-text);
+    }
+    .badge-buzz {
+      background: var(--color-buzz);
+      border-color: var(--color-buzz-border);
+      color: var(--color-buzz-text);
+    }
+    .badge-fizzbuzz {
+      background: var(--color-fizzbuzz);
+      border-color: var(--color-fizzbuzz-border);
+      color: var(--color-fizzbuzz-text);
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>FizzBuzz (1 〜 50)</h1>
+      <p class="subtitle">3の倍数は「Fizz」、5の倍数は「Buzz」、15の倍数は「FizzBuzz」</p>
+    </header>
+
+    <div class="legend">
+      <div class="legend-item">
+        <span class="legend-badge badge-normal">数字</span>
+        <span>通常 (それ以外)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge badge-fizz">Fizz</span>
+        <span>3の倍数</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge badge-buzz">Buzz</span>
+        <span>5の倍数</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge badge-fizzbuzz">FizzBuzz</span>
+        <span>15の倍数</span>
+      </div>
+    </div>
+
+    <main id="fizzbuzz-grid" class="grid"></main>
+
+    <footer>
+      <p>1 から 50 までの FizzBuzz 結果一覧</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("fizzbuzz-grid");
+      const fragment = document.createDocumentFragment();
+
+      for (let i = 1; i <= 50; i++) {
+        let text = i;
+        let type = "normal";
+
+        if (i % 15 === 0) {
+          text = "FizzBuzz";
+          type = "fizzbuzz";
+        } else if (i % 3 === 0) {
+          text = "Fizz";
+          type = "fizz";
+        } else if (i % 5 === 0) {
+          text = "Buzz";
+          type = "buzz";
+        }
+
+        const card = document.createElement("div");
+        card.className = `card type-${type}`;
+
+        const numEl = document.createElement("div");
+        numEl.className = "card-num";
+        numEl.textContent = `#${i}`;
+
+        const labelEl = document.createElement("div");
+        labelEl.className = "card-label";
+        labelEl.textContent = text;
+
+        card.appendChild(numEl);
+        card.appendChild(labelEl);
+        fragment.appendChild(card);
+      }
+
+      container.appendChild(fragment);
+    });
+  </script>
+</body>
+</html>
